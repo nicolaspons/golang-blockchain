@@ -1,14 +1,13 @@
-package main
+package blockchain
 
 import (
 	"bytes"
 	"crypto/sha256"
-	"fmt"
 )
 
 // BlackChain object that contains all the Block objects.
 type BlockChain struct {
-	blocks []*Block
+	Blocks []*Block
 }
 
 // Block object that contains byte represntation of the data,
@@ -37,9 +36,9 @@ func CreateBlock(data string, prevHash []byte) *Block {
 
 // Adds a Block object to the a BlockChain object.
 func (chain *BlockChain) AddBlock(data string) {
-	prevBlock := chain.blocks[len(chain.blocks)-1]
+	prevBlock := chain.Blocks[len(chain.Blocks)-1]
 	newBlock := CreateBlock(data, prevBlock.Hash)
-	chain.blocks = append(chain.blocks, newBlock)
+	chain.Blocks = append(chain.Blocks, newBlock)
 }
 
 // Creates the first BlockChain's Block
@@ -50,17 +49,4 @@ func Genesis() *Block {
 // Initialises the BlockChain
 func InitBlockChain() *BlockChain {
 	return &BlockChain{[]*Block{Genesis()}}
-}
-
-func main() {
-	chain := InitBlockChain()
-	chain.AddBlock("First Block after Genesis")
-	chain.AddBlock("Second Block after Genesis")
-	chain.AddBlock("Third Block after Genesis")
-
-	for _, block := range chain.blocks {
-		fmt.Printf("Previous Hash: %x\n", block.PrevHash)
-		fmt.Printf("Data in Block: %s\n", block.Data)
-		fmt.Printf("Hash: %x\n", block.Hash)
-	}
 }
