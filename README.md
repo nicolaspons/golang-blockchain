@@ -1,4 +1,5 @@
 # golang-blockchain
+Simple blockchain based on proof of work
 
 # TODO
 

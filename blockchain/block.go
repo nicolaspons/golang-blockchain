@@ -1,11 +1,18 @@
 package blockchain
 
+<<<<<<< HEAD
 import (
 	"bytes"
 	"crypto/sha256"
 	"encoding/gob"
 	"log"
 )
+=======
+// BlackChain object that contains all the Block objects.
+type BlockChain struct {
+	Blocks []*Block
+}
+>>>>>>> 8200e770fff0116bd1d588427ed572a904e4848b
 
 // Block object that contains byte represntation of the data,
 // the hash of the previous Block object and its current hash.

@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
-	"math/big"
+	"strconv"
+
+	"github.com/nicolaspons/golang-blockchain/blockchain"
 )
 
 func main() {
-	/*chain := blockchain.InitBlockChain()
+	chain := blockchain.InitBlockChain()
 	chain.AddBlock("First Block after Genesis")
 	chain.AddBlock("Second Block after Genesis")
 	chain.AddBlock("Third Block after Genesis")
@@ -15,10 +17,9 @@ func main() {
 		fmt.Printf("Previous Hash: %x\n", block.PrevHash)
 		fmt.Printf("Data in Block: %s\n", block.Data)
 		fmt.Printf("Hash: %x\n", block.Hash)
-	}*/
-	target := big.NewInt(1)
-	fmt.Printf("%d\n", target)
-	target.Lsh(target, uint(256-14)) // shifts the target
-	fmt.Printf("%d\n", target)
 
+		pow := blockchain.NewProof(block)
+		fmt.Printf("PoW: %s\n", strconv.FormatBool(pow.Validate()))
+		fmt.Println()
+	}
 }
