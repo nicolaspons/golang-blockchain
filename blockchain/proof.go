@@ -12,7 +12,7 @@ import (
 
 // For now, the difficulty is static but it will be computed
 // through an algorithm soon.
-const Difficulty = 18
+const Difficulty = 2
 
 // ProofOfWork object used to write a block in the blockchain.
 type ProofOfWork struct {
@@ -24,8 +24,10 @@ type ProofOfWork struct {
 // a pointer to a BLock object.
 func NewProof(b *Block) *ProofOfWork {
 	target := big.NewInt(1)
-	target.Lsh(target, uint(256-Difficulty)) // shifts the target
+	target.Lsh(target, uint(256-Difficulty))
+
 	pow := &ProofOfWork{b, target}
+
 	return pow
 }
 
@@ -40,6 +42,7 @@ func (pow *ProofOfWork) InitData(nonce int) []byte {
 		},
 		[]byte{},
 	)
+
 	return data
 }
 
@@ -66,8 +69,10 @@ func (pow *ProofOfWork) Run() (int, []byte) {
 		} else {
 			nonce++
 		}
+
 	}
 	fmt.Println()
+
 	return nonce, hash[:]
 }
 
@@ -78,6 +83,7 @@ func (pow *ProofOfWork) Validate() bool {
 
 	hash := sha256.Sum256(data)
 	intHash.SetBytes(hash[:])
+
 	return intHash.Cmp(pow.Target) == -1
 }
 
@@ -87,6 +93,8 @@ func ToHex(num int64) []byte {
 	err := binary.Write(buff, binary.BigEndian, num)
 	if err != nil {
 		log.Panic(err)
+
 	}
+
 	return buff.Bytes()
 }
